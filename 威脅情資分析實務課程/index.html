@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-TW,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/notes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/notes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/notes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/notes/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/notes/css/main.css">
+
+
+<link rel="stylesheet" href="/notes/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jonafk555-notes.github.io","root":"/notes/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="臺灣好厲駭 威脅情資分析實務 筆記">
+<meta property="og:type" content="article">
+<meta property="og:title" content="威脅情資分析實務課程">
+<meta property="og:url" content="https://jonafk555-notes.github.io/notes/%E5%A8%81%E8%84%85%E6%83%85%E8%B3%87%E5%88%86%E6%9E%90%E5%AF%A6%E5%8B%99%E8%AA%B2%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Jonathan Liu的學習筆記">
+<meta property="og:description" content="臺灣好厲駭 威脅情資分析實務 筆記">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/qgcQqld.png">
+<meta property="article:published_time" content="2023-01-25T04:12:28.000Z">
+<meta property="article:modified_time" content="2023-01-25T05:46:11.711Z">
+<meta property="article:author" content="Jonathan Liu">
+<meta property="article:tag" content="臺灣好厲駭">
+<meta property="article:tag" content="資訊安全">
+<meta property="article:tag" content="威脅情資分析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/qgcQqld.png">
+
+<link rel="canonical" href="https://jonafk555-notes.github.io/notes/%E5%A8%81%E8%84%85%E6%83%85%E8%B3%87%E5%88%86%E6%9E%90%E5%AF%A6%E5%8B%99%E8%AA%B2%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>威脅情資分析實務課程 | Jonathan Liu的學習筆記 - </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/notes/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jonathan Liu的學習筆記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/notes/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/notes/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/notes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/notes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/notes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://jonafk555-notes.github.io/notes/%E5%A8%81%E8%84%85%E6%83%85%E8%B3%87%E5%88%86%E6%9E%90%E5%AF%A6%E5%8B%99%E8%AA%B2%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/notes/images/me.jpg">
+      <meta itemprop="name" content="Jonathan Liu">
+      <meta itemprop="description" content="我的學習文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jonathan Liu的學習筆記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          威脅情資分析實務課程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2023-01-25 12:12:28 / 修改時間：13:46:11" itemprop="dateCreated datePublished" datetime="2023-01-25T12:12:28+08:00">2023-01-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/notes/categories/%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">資訊安全</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">臺灣好厲駭 威脅情資分析實務 筆記</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="威脅情資分析實務課程"><a href="#威脅情資分析實務課程" class="headerlink" title="威脅情資分析實務課程"></a>威脅情資分析實務課程</h1><p>[TOC]</p>
+<h1 id="life-cycle"><a href="#life-cycle" class="headerlink" title="life cycle"></a>life cycle</h1><h2 id="準備"><a href="#準備" class="headerlink" title="準備:"></a>準備:</h2><p>追蹤中國APT group的好處:</p>
+<p>中國駭客也會去打其他國家 –&gt; </p>
+<h3 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h3><ul>
+<li><p>Cyber Crime:為了錢，獨立運作、較沒有組織性，打銀行、加密貨幣可能較有組織性。</p>
+</li>
+<li><p>Cyber Espionage:網路間諜，竊取機密、文件，多滲透於半導體產業(APT)，政府方支持行動(背後支持)、軍隊也會有。</p>
+</li>
+<li><p>Hacktivist:只是想展現駭客技術，駭客自我展現。</p>
+</li>
+</ul>
+<h3 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h3><ul>
+<li><p>Region地域性:<br>例如:中國打韓國、日本、台灣……等</p>
+</li>
+<li><p>Industry產業:<br>半導體……等</p>
+</li>
+</ul>
+<h2 id="資料蒐集"><a href="#資料蒐集" class="headerlink" title="資料蒐集"></a>資料蒐集</h2><p><img src="https://i.imgur.com/qgcQqld.png"></p>
+<ul>
+<li><p>data:從電腦、系統存取</p>
+</li>
+<li><p>information:蒐集第三方資料、報告</p>
+</li>
+<li><p>Community:</p>
+</li>
+<li><p>Social Media:多在twitter</p>
+</li>
+<li><p>Threat Data Feed:黑名單…</p>
+</li>
+<li><p>Open-source Intelligence :google、deep web(微信群、tg群，販賣exploit、hacker tools…、個資…)、dark web。</p>
+</li>
+</ul>
+<h3 id="External-Source"><a href="#External-Source" class="headerlink" title="External Source:"></a>External Source:</h3><ul>
+<li>mitre att&amp;ck:<ul>
+<li>tactics:攻擊手法報告<ul>
+<li>知道種類?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>malpedia:<ul>
+<li>搜尋惡意程式、族群…</li>
+<li>族群 –&gt; 族群用的惡意程式</li>
+</ul>
+</li>
+<li>twitter:<ul>
+<li>hashtag:<code>APT</code></li>
+</ul>
+</li>
+<li>awesome cyber intelligent</li>
+<li>Collection <a target="_blank" rel="noopener" href="https://start.me/p/rxRbpo/">https://start.me/p/rxRbpo/</a></li>
+<li>team t5 blog</li>
+<li>securelist.com(卡巴斯基，威脅情資top1)</li>
+<li>unit42</li>
+</ul>
+<h3 id="Internal-Source"><a href="#Internal-Source" class="headerlink" title="Internal Source"></a>Internal Source</h3><ul>
+<li>SIEM &#x2F; Sensors:從端點產品找</li>
+<li>Incident Response:事件回應</li>
+<li>Network Visibility:從流量找</li>
+<li>Malware Analysis:直接逆向病毒</li>
+<li>Research Lab</li>
+</ul>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><ul>
+<li><p>ADVERSARY:駭客族群</p>
+</li>
+<li><p>TARGET:被打的</p>
+</li>
+<li><p>CAPABILITY:使用的技能</p>
+</li>
+<li><p>INFRASTRUCTURE:使用的工具(C2)</p>
+<ul>
+<li>根據C2的位置，找受害國家</li>
+<li>compromise machine:用別的受害者電腦當c2</li>
+</ul>
+</li>
+<li><p>malware analysis workflow:</p>
+<ul>
+<li>自動化只能當information</li>
+<li>人工驗證也很重要</li>
+</ul>
+</li>
+<li><p>Attribution:歸屬</p>
+</li>
+<li><p>Impact:在IR時，攻擊的範圍、入侵的電腦</p>
+</li>
+<li><p>Breakdown of the tactics:解方。更新資料…</p>
+</li>
+</ul>
+<p>威脅情資分析師:良好英文能力，整合研究員報告給客戶<br>威脅情資研究員:追查駭客</p>
+<ul>
+<li>三種分析工具種類:</li>
+</ul>
+<ol>
+<li>observation analysis:直接觀察，最不會錯</li>
+<li>dynamic:</li>
+<li>static:</li>
+</ol>
+<h3 id="windows-分析工具"><a href="#windows-分析工具" class="headerlink" title="windows 分析工具"></a>windows 分析工具</h3><ul>
+<li>sysinternals<ul>
+<li>IR三寶</li>
+</ul>
+</li>
+</ul>
+<p>做惡意程式分析可以分析寫入檔案(api:WriteFile)</p>
+<ul>
+<li><p>process monitor –&gt; filter –&gt; filter</p>
+</li>
+<li><p>system informer(整合的工具;前身process hacker):<br>find handle or dlls可以看到誰正在開啟 –&gt; 砍檔案</p>
+</li>
+<li><p>captrue bat:<br>保留蛛絲馬跡，找到刪除檔案(瞬間消失的檔案)</p>
+</li>
+</ul>
+<p>用md5去野外撿檔案 –&gt; 現在找不到了<br><a target="_blank" rel="noopener" href="https://www.honeynet.org/projects/old/capture-bat/">honeynet.org</a><br>從logs找</p>
+<h3 id="網路工具"><a href="#網路工具" class="headerlink" title="網路工具:"></a>網路工具:</h3><ul>
+<li><p>wireshark</p>
+</li>
+<li><p>fiddler:<br>http 紀錄器，解https(加密過的東西)<br>有些惡意程式可以繞過</p>
+</li>
+<li><p>mitmproxy:<br>可以防惡意程式繞過<br>要架ubuntu 當proxy server</p>
+</li>
+<li><p>apateDNS<br>DNS控制器<br>監看DNS流量的工具</p>
+</li>
+</ul>
+<h3 id="dimond-model-analysis"><a href="#dimond-model-analysis" class="headerlink" title="dimond model analysis"></a>dimond model analysis</h3><ul>
+<li><p>族群分析:</p>
+<ul>
+<li>語言:韓文、簡體中文、俄文……等。</li>
+<li>工具:族群有特定使用工具，開源較難偵查</li>
+<li>infra:使用c2，中國租香港cloud…</li>
+<li>time zone:編譯時間推斷上班時間</li>
+</ul>
+</li>
+<li><p>中國駭客組織:成都404(APT41;amoeba)</p>
+</li>
+<li><p>受害者分析</p>
+<ul>
+<li>email</li>
+</ul>
+</li>
+<li><p>delivery methods:</p>
+<ul>
+<li>釣魚</li>
+<li>水坑式攻擊</li>
+<li>供應鏈攻擊</li>
+<li>…</li>
+</ul>
+</li>
+<li><p>fake document</p>
+</li>
+</ul>
+<p>不會去看top domain是<code>ml</code>、<code>cf</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/notes/tags/%E8%87%BA%E7%81%A3%E5%A5%BD%E5%8E%B2%E9%A7%AD/" rel="tag"># 臺灣好厲駭</a>
+              <a href="/notes/tags/%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" rel="tag"># 資訊安全</a>
+              <a href="/notes/tags/%E5%A8%81%E8%84%85%E6%83%85%E8%B3%87%E5%88%86%E6%9E%90/" rel="tag"># 威脅情資分析</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/notes/%E6%B3%95%E9%86%AB%E7%97%85%E7%90%86-%E5%82%B7%E5%8B%A2%E5%88%86%E6%9E%90-%E9%8F%A1%E6%AA%A2/" rel="prev" title="法醫病理:傷勢分析_鏡檢">
+      <i class="fa fa-chevron-left"></i> 法醫病理:傷勢分析_鏡檢
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/notes/%E5%8D%80%E5%A1%8A%E9%8F%88%E8%88%87%E6%99%BA%E6%85%A7%E5%90%88%E7%B4%84%E5%AE%89%E5%85%A8/" rel="next" title="區塊鏈與智慧合約安全">
+      區塊鏈與智慧合約安全 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A8%81%E8%84%85%E6%83%85%E8%B3%87%E5%88%86%E6%9E%90%E5%AF%A6%E5%8B%99%E8%AA%B2%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">威脅情資分析實務課程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#life-cycle"><span class="nav-number">2.</span> <span class="nav-text">life cycle</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%96%E5%82%99"><span class="nav-number">2.1.</span> <span class="nav-text">準備:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Type"><span class="nav-number">2.1.1.</span> <span class="nav-text">Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Target"><span class="nav-number">2.1.2.</span> <span class="nav-text">Target</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E8%92%90%E9%9B%86"><span class="nav-number">2.2.</span> <span class="nav-text">資料蒐集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#External-Source"><span class="nav-number">2.2.1.</span> <span class="nav-text">External Source:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Internal-Source"><span class="nav-number">2.2.2.</span> <span class="nav-text">Internal Source</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">2.3.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#windows-%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7"><span class="nav-number">2.3.1.</span> <span class="nav-text">windows 分析工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B6%B2%E8%B7%AF%E5%B7%A5%E5%85%B7"><span class="nav-number">2.3.2.</span> <span class="nav-text">網路工具:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dimond-model-analysis"><span class="nav-number">2.3.3.</span> <span class="nav-text">dimond model analysis</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jonathan Liu"
+      src="/notes/images/me.jpg">
+  <p class="site-author-name" itemprop="name">Jonathan Liu</p>
+  <div class="site-description" itemprop="description">我的學習文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/notes/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/notes/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/notes/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jonathan Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/notes/lib/anime.min.js"></script>
+  <script src="/notes/lib/velocity/velocity.min.js"></script>
+  <script src="/notes/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/notes/js/utils.js"></script>
+
+<script src="/notes/js/motion.js"></script>
+
+
+<script src="/notes/js/schemes/pisces.js"></script>
+
+
+<script src="/notes/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

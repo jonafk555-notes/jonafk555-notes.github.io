@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="zh-TW,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/notes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/notes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/notes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/notes/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/notes/css/main.css">
+
+
+<link rel="stylesheet" href="/notes/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jonafk555-notes.github.io","root":"/notes/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="臺灣好厲駭 區塊鏈與智慧合約安全 筆記">
+<meta property="og:type" content="article">
+<meta property="og:title" content="區塊鏈與智慧合約安全">
+<meta property="og:url" content="https://jonafk555-notes.github.io/notes/%E5%8D%80%E5%A1%8A%E9%8F%88%E8%88%87%E6%99%BA%E6%85%A7%E5%90%88%E7%B4%84%E5%AE%89%E5%85%A8/index.html">
+<meta property="og:site_name" content="Jonathan Liu的學習筆記">
+<meta property="og:description" content="臺灣好厲駭 區塊鏈與智慧合約安全 筆記">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/cC6AYW6.png">
+<meta property="og:image" content="https://i.imgur.com/Sxmx5Hl.png">
+<meta property="og:image" content="https://i.imgur.com/9vxpIvE.png">
+<meta property="og:image" content="https://i.imgur.com/3NP00Br.png">
+<meta property="og:image" content="https://i.imgur.com/jUEi0D6.png">
+<meta property="og:image" content="https://i.imgur.com/rGACsME.png">
+<meta property="og:image" content="https://i.imgur.com/CZk5Y3S.png">
+<meta property="og:image" content="https://i.imgur.com/U0CZcwH.png">
+<meta property="og:image" content="https://i.imgur.com/ThOW8NI.png">
+<meta property="og:image" content="https://i.imgur.com/MQNoH4U.png">
+<meta property="og:image" content="https://i.imgur.com/XHIUO7U.png">
+<meta property="og:image" content="https://i.imgur.com/QMinjSA.png">
+<meta property="article:published_time" content="2023-01-25T04:24:46.000Z">
+<meta property="article:modified_time" content="2023-01-25T05:46:25.785Z">
+<meta property="article:author" content="Jonathan Liu">
+<meta property="article:tag" content="臺灣好厲駭">
+<meta property="article:tag" content="資訊安全">
+<meta property="article:tag" content="區塊鏈安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/cC6AYW6.png">
+
+<link rel="canonical" href="https://jonafk555-notes.github.io/notes/%E5%8D%80%E5%A1%8A%E9%8F%88%E8%88%87%E6%99%BA%E6%85%A7%E5%90%88%E7%B4%84%E5%AE%89%E5%85%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>區塊鏈與智慧合約安全 | Jonathan Liu的學習筆記 - </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/notes/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jonathan Liu的學習筆記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/notes/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/notes/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/notes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/notes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/notes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://jonafk555-notes.github.io/notes/%E5%8D%80%E5%A1%8A%E9%8F%88%E8%88%87%E6%99%BA%E6%85%A7%E5%90%88%E7%B4%84%E5%AE%89%E5%85%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/notes/images/me.jpg">
+      <meta itemprop="name" content="Jonathan Liu">
+      <meta itemprop="description" content="我的學習文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jonathan Liu的學習筆記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          區塊鏈與智慧合約安全
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2023-01-25 12:24:46 / 修改時間：13:46:25" itemprop="dateCreated datePublished" datetime="2023-01-25T12:24:46+08:00">2023-01-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/notes/categories/%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">資訊安全</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">臺灣好厲駭 區塊鏈與智慧合約安全 筆記</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="區塊鏈與智慧合約安全"><a href="#區塊鏈與智慧合約安全" class="headerlink" title="區塊鏈與智慧合約安全"></a>區塊鏈與智慧合約安全</h1><p>[TOC]</p>
+<h1 id="101"><a href="#101" class="headerlink" title="101"></a>101</h1><h2 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h2><ul>
+<li><p>去中心化:理想，還是有不是中心化的，</p>
+</li>
+<li><p>不變性:</p>
+</li>
+<li><p>匿名性:無法直接透過hash找到人</p>
+</li>
+<li><p>共識:世界改變</p>
+<ul>
+<li>state machine</li>
+<li>world state</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://andersbrownworth.com/blockchain/block">https://andersbrownworth.com/blockchain/block</a></p>
+</li>
+<li><p>下一個block跟的prev是前一個的hash</p>
+<ul>
+<li>做暴力破解可以破解到同樣的prev值。<code>https://andersbrownworth.com/blockchain/blockchain</code> </li>
+<li><img src="https://i.imgur.com/cC6AYW6.png"></li>
+</ul>
+</li>
+<li><p>insert data –&gt; 狀態改變</p>
+</li>
+<li><p>content:</p>
+<ul>
+<li>header</li>
+<li>data</li>
+<li>hash</li>
+</ul>
+</li>
+<li><p>分散式系統去中心化</p>
+</li>
+<li><p>看起來是加解密過程</p>
+</li>
+<li><p>自己的私鑰簽簽章</p>
+</li>
+</ul>
+<h2 id="type-of-chain"><a href="#type-of-chain" class="headerlink" title="type of chain"></a>type of chain</h2><ul>
+<li>公有鏈:想加就加，不會對身分驗證</li>
+<li>私有鏈:<strong>中心化</strong>管理，會做node的身分驗證，每個node會有權限控制，總數少、穩定，亂搞能被找出，ex:國家的數位貨幣。</li>
+<li>Consortium聯盟鏈:一群node只能送出交易，一群只能驗證，一群是管理的，允許許多node加入，有一些有權限控管，放越多錢–&gt;越有可能不會亂搞。<ul>
+<li>proof of work(PoW):用算力去獲取幣，挖礦</li>
+<li>proof of stake(PoS):越多錢講話越大聲</li>
+<li>delegated proof of stake(DPoS):某些人幫你驗證，某些人有某些權限。</li>
+</ul>
+</li>
+<li>混和鏈</li>
+</ul>
+<h3 id="difficulty"><a href="#difficulty" class="headerlink" title="difficulty"></a>difficulty</h3><ul>
+<li>hash長度越長，越難爆破。</li>
+<li>33.85T個hash才能找到，收益是無中生有給礦工，礦工越挖越快–&gt;幣會下跌、幣會通貨膨脹。</li>
+<li>預防系統容易通貨膨脹–&gt;difficulty越難算。<ul>
+<li>幣價大跌–&gt;難度降低</li>
+<li>幣價上漲–&gt;難度升高</li>
+</ul>
+</li>
+</ul>
+<h3 id="Longest-chain"><a href="#Longest-chain" class="headerlink" title="Longest chain"></a>Longest chain</h3><ul>
+<li>每個礦工node花算力去算出來的block的transition可能不一樣。</li>
+<li>系統會獎勵花算力最多、最長的。</li>
+<li>要上鏈才算，一些會被丟到池子裡。</li>
+</ul>
+<h3 id="double-spending"><a href="#double-spending" class="headerlink" title="double spending"></a>double spending</h3><ul>
+<li>利用最長鏈的特性</li>
+<li>做出最長鏈後，丟出去再拿回來</li>
+</ul>
+<h3 id="consensus-algorithm-permissioned"><a href="#consensus-algorithm-permissioned" class="headerlink" title="consensus algorithm - permissioned"></a>consensus algorithm - permissioned</h3><ul>
+<li>拜占庭容錯演算法</li>
+<li>公有鏈或私有鏈<strong>很少</strong>的情況下，可以用此演算法</li>
+<li>錯誤低於1&#x2F;3 系統就不會爆</li>
+</ul>
+<h3 id="summary-of-blockchain"><a href="#summary-of-blockchain" class="headerlink" title="summary of blockchain"></a>summary of blockchain</h3><h3 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h3><ul>
+<li>系統要大改，長出另一個側鏈(有新的規則)</li>
+<li>自己選擇要走的鏈</li>
+</ul>
+<h3 id="blockchain-trilemma"><a href="#blockchain-trilemma" class="headerlink" title="blockchain trilemma"></a>blockchain trilemma</h3><p>通常只能選擇兩種，另一種只能放棄<br>驗證、安全很多–&gt;慢</p>
+<ul>
+<li>去中心化</li>
+<li>安全</li>
+<li>快速<br><img src="https://i.imgur.com/Sxmx5Hl.png"></li>
+</ul>
+<h2 id="Layers"><a href="#Layers" class="headerlink" title="Layers"></a>Layers</h2><ul>
+<li>也會有傳統網路上會遇到的問題</li>
+<li>也會有自己會遇到的問題<br><img src="https://i.imgur.com/9vxpIvE.png"></li>
+</ul>
+<p>要架設出鏈的東西–&gt;先決條件要有一般internet的東西</p>
+<ul>
+<li>internet有的問題，鏈的底層也會有</li>
+</ul>
+<h3 id="Layer0"><a href="#Layer0" class="headerlink" title="Layer0"></a>Layer0</h3><ul>
+<li>鏈跟鏈的溝通</li>
+<li>做一個服務，在一個幣上做出一個新的鏈(另一個幣)，但基於原來的規則</li>
+</ul>
+<h3 id="Layer1"><a href="#Layer1" class="headerlink" title="Layer1"></a>Layer1</h3><ul>
+<li>bitcoin</li>
+<li>ethereum</li>
+<li>…</li>
+</ul>
+<h3 id="Layer2-擴充基本功能"><a href="#Layer2-擴充基本功能" class="headerlink" title="Layer2(擴充基本功能)"></a>Layer2(擴充基本功能)</h3><ul>
+<li>鏈的優化<ul>
+<li>lightening network閃電網路<ul>
+<li>P2P</li>
+<li>危險:安全性低、驗證少</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>跨鏈的服務</li>
+<li>鏈跟真實世界的交流:中介質</li>
+</ul>
+<h3 id="Layer3-交易所"><a href="#Layer3-交易所" class="headerlink" title="Layer3(交易所)"></a>Layer3(交易所)</h3><ul>
+<li>中央銀行數位貨幣(CBDC):區塊鏈的幣真實世界無法管到，不希望去中心化貨幣無法控管</li>
+<li>去中心化交易所</li>
+<li>NFT</li>
+<li>去中心化金融</li>
+</ul>
+<h3 id="Layer4-跟人介接的介面"><a href="#Layer4-跟人介接的介面" class="headerlink" title="Layer4(跟人介接的介面)"></a>Layer4(跟人介接的介面)</h3><ul>
+<li>brave</li>
+<li>metamask</li>
+<li>…</li>
+</ul>
+<h2 id="DeFi"><a href="#DeFi" class="headerlink" title="DeFi"></a>DeFi</h2><ul>
+<li>交易所:一個管理的錢包，確保安全。ex:幣安、FTX…</li>
+<li>去中心化交易所:</li>
+</ul>
+<hr>
+<ul>
+<li>質押</li>
+<li>借貸</li>
+</ul>
+<hr>
+<ul>
+<li>槓桿</li>
+<li>…</li>
+</ul>
+<hr>
+<ul>
+<li>閃電貸:當沖</li>
+</ul>
+<h2 id="Non-Fungible-Token-NFT"><a href="#Non-Fungible-Token-NFT" class="headerlink" title="Non-Fungible Token(NFT)"></a>Non-Fungible Token(NFT)</h2><ul>
+<li>本質上，每一個token都是獨特的</li>
+<li>也有虛寶:都是一樣的(本質都是token，但都一樣)</li>
+<li>有不同協定<ul>
+<li>ERC721</li>
+<li>ERC1155</li>
+</ul>
+</li>
+</ul>
+<h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><h3 id="web1-0"><a href="#web1-0" class="headerlink" title="web1.0"></a>web1.0</h3><ul>
+<li>靜態網頁</li>
+</ul>
+<h3 id="web2-0"><a href="#web2-0" class="headerlink" title="web2.0"></a>web2.0</h3><ul>
+<li>動態網頁<ul>
+<li>ig、fb…<ul>
+<li>cookie</li>
+<li>session</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="web3-0"><a href="#web3-0" class="headerlink" title="web3.0"></a>web3.0</h3><ul>
+<li>網頁加到鏈上，推到鏈上(靜態網站，不能修改)</li>
+<li>區塊鏈架構架到傳統web2.0上</li>
+</ul>
+<h2 id="private-key"><a href="#private-key" class="headerlink" title="private key"></a>private key</h2><ul>
+<li>保護錢包</li>
+<li>有風險問題</li>
+</ul>
+<h2 id="wallet"><a href="#wallet" class="headerlink" title="wallet"></a>wallet</h2><ul>
+<li>cold:實體錢包<ul>
+<li>實體風險:用丟…</li>
+<li>出金較難</li>
+</ul>
+</li>
+<li>hot:有連接網路的<ul>
+<li>網路風險</li>
+</ul>
+</li>
+</ul>
+<h2 id="交易所"><a href="#交易所" class="headerlink" title="交易所"></a>交易所</h2><ul>
+<li>去中心交易所:有上鏈，有驗證保護</li>
+<li>中心化交易所(CEX):幣安、FTX…<ul>
+<li>速度快</li>
+<li>統合完帳才推上鏈</li>
+<li>風險:CEX被盜，錢包的東西也會被盜</li>
+</ul>
+</li>
+</ul>
+<h3 id="FTX"><a href="#FTX" class="headerlink" title="FTX"></a>FTX</h3><ul>
+<li>top 3 CEX</li>
+<li>把用戶的錢挪用</li>
+<li>風險<ul>
+<li>中心化交易所，內部不透明</li>
+</ul>
+</li>
+</ul>
+<h1 id="security"><a href="#security" class="headerlink" title="security"></a>security</h1><ul>
+<li>為什麼容易被攻擊?<ul>
+<li>跟錢有關誰想回報 笑死</li>
+</ul>
+</li>
+</ul>
+<h2 id="seed-pharse"><a href="#seed-pharse" class="headerlink" title="seed pharse:"></a>seed pharse:</h2><ul>
+<li>記憶詞&#x3D;私鑰</li>
+<li>遺失private key錢就掰掰</li>
+</ul>
+<h2 id="wallet-generator-不要用這種非正式的wallet"><a href="#wallet-generator-不要用這種非正式的wallet" class="headerlink" title="wallet generator(不要用這種非正式的wallet)"></a>wallet generator(不要用這種非正式的wallet)</h2><ul>
+<li><p>理論上生成的private key每個人都要不同</p>
+<ul>
+<li>但key有重複</li>
+</ul>
+</li>
+<li><p>被打掛了後門</p>
+<ul>
+<li>私鑰被傳到C2</li>
+</ul>
+</li>
+<li><p>工程師寫加密很偷懶</p>
+<ul>
+<li>能夠透過生成的記憶詞反推</li>
+<li>review source code</li>
+</ul>
+</li>
+</ul>
+<h3 id="sybil-attack"><a href="#sybil-attack" class="headerlink" title="sybil attack"></a>sybil attack</h3><ul>
+<li>複製很多惡意的node去包圍正常的node.js</li>
+</ul>
+<h3 id="double-spending-1"><a href="#double-spending-1" class="headerlink" title="double spending"></a>double spending</h3><h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><ul>
+<li>實作沒有嚴謹，會被攻擊</li>
+<li>功能型RPC server(接進鏈):<ul>
+<li>port:8545、18545(不會驗證)</li>
+</ul>
+</li>
+<li>風險<ul>
+<li>memory</li>
+<li>ddos</li>
+</ul>
+</li>
+</ul>
+<h3 id="RPC-attack"><a href="#RPC-attack" class="headerlink" title="RPC attack"></a>RPC attack</h3><ul>
+<li>節點透過RPC跟旁邊節點溝通</li>
+<li>把有問題的位址塞在RPC endpoint，做交握<ul>
+<li>擴散</li>
+</ul>
+</li>
+</ul>
+<h3 id="BGP-hijacking"><a href="#BGP-hijacking" class="headerlink" title="BGP hijacking"></a>BGP hijacking</h3><ul>
+<li>送一個封包問isp要往哪去</li>
+</ul>
+<h3 id="DNS-hijacking"><a href="#DNS-hijacking" class="headerlink" title="DNS hijacking"></a>DNS hijacking</h3><h3 id="Dusting-hijacking"><a href="#Dusting-hijacking" class="headerlink" title="Dusting hijacking"></a>Dusting hijacking</h3><ul>
+<li>偷偷丟一塊錢給wallet，追蹤錢送往哪，回推錢包是誰的</li>
+<li></li>
+</ul>
+<h2 id="Layer2"><a href="#Layer2" class="headerlink" title="Layer2"></a>Layer2</h2><h3 id="跨鏈橋cross-chain-bridge"><a href="#跨鏈橋cross-chain-bridge" class="headerlink" title="跨鏈橋cross-chain bridge"></a>跨鏈橋cross-chain bridge</h3><ul>
+<li>兩個獨立的鏈，資產不行相互轉移<ul>
+<li>實作一個bridge</li>
+<li>在A鏈凍結原先資產，在B鏈生成等值的資產</li>
+<li>跨鏈橋的服務有鑄造新幣的功能</li>
+<li>跨鏈橋的攻擊</li>
+</ul>
+</li>
+</ul>
+<h2 id="Layer3"><a href="#Layer3" class="headerlink" title="Layer3"></a>Layer3</h2><h3 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h3><ul>
+<li>跟真實世界連接</li>
+</ul>
+<h3 id="Flash-loan"><a href="#Flash-loan" class="headerlink" title="Flash loan"></a>Flash loan</h3><ul>
+<li>當沖</li>
+<li>先借錢 –&gt; 拿去用 –&gt;還錢<ul>
+<li>借錢跟還錢在同一個block</li>
+<li>沒有在同一個block的話會消失<ul>
+<li>原址性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>攻擊成本降低，使得一些攻擊門檻高的合約容易被攻擊。</li>
+</ul>
+<h3 id="slippage"><a href="#slippage" class="headerlink" title="slippage"></a>slippage</h3><ul>
+<li>CEX規模通常DEX</li>
+<li>DEX</li>
+</ul>
+<p><img src="https://i.imgur.com/3NP00Br.png"></p>
+<h3 id="Flash-loan-attack"><a href="#Flash-loan-attack" class="headerlink" title="Flash loan attack"></a>Flash loan attack</h3><p><img src="https://i.imgur.com/jUEi0D6.png"></p>
+<ul>
+<li>先借錢</li>
+<li>大量的丟進DEX –&gt; A幣下跌、B幣上漲 –&gt; 拿出B</li>
+<li>B放到合約</li>
+<li></li>
+</ul>
+<p><img src="https://i.imgur.com/rGACsME.png"></p>
+<h3 id="transaction"><a href="#transaction" class="headerlink" title="transaction"></a>transaction</h3><ul>
+<li>每個transaction有手續費</li>
+</ul>
+<h3 id="MEV"><a href="#MEV" class="headerlink" title="MEV"></a>MEV</h3><ul>
+<li>還沒變成block的transaction(還在pool)挑出蛛絲馬跡<ul>
+<li>可以把這個機制當作先買的訊號</li>
+</ul>
+</li>
+</ul>
+<h3 id="mixer混幣器"><a href="#mixer混幣器" class="headerlink" title="mixer混幣器"></a>mixer混幣器</h3><ul>
+<li>當作洗錢工具</li>
+<li>匿名性</li>
+</ul>
+<h2 id="Lab"><a href="#Lab" class="headerlink" title="Lab"></a>Lab</h2><ul>
+<li><p>1<br><img src="https://i.imgur.com/CZk5Y3S.png"></p>
+</li>
+<li><p>2<br><img src="https://i.imgur.com/U0CZcwH.png"></p>
+</li>
+<li><p>3<br><img src="https://i.imgur.com/ThOW8NI.png"></p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/MQNoH4U.png"></p>
+<p><img src="https://i.imgur.com/XHIUO7U.png"></p>
+<p><img src="https://i.imgur.com/QMinjSA.png"></p>
+<ul>
+<li>4</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/notes/tags/%E8%87%BA%E7%81%A3%E5%A5%BD%E5%8E%B2%E9%A7%AD/" rel="tag"># 臺灣好厲駭</a>
+              <a href="/notes/tags/%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" rel="tag"># 資訊安全</a>
+              <a href="/notes/tags/%E5%8D%80%E5%A1%8A%E9%8F%88%E5%AE%89%E5%85%A8/" rel="tag"># 區塊鏈安全</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/notes/%E5%A8%81%E8%84%85%E6%83%85%E8%B3%87%E5%88%86%E6%9E%90%E5%AF%A6%E5%8B%99%E8%AA%B2%E7%A8%8B/" rel="prev" title="威脅情資分析實務課程">
+      <i class="fa fa-chevron-left"></i> 威脅情資分析實務課程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/notes/%E6%B3%95%E9%86%AB%E7%97%85%E7%90%86-%E5%82%B7%E5%8B%A2%E5%88%86%E6%9E%90-%E5%9E%8B%E6%85%8B%E8%BE%A8%E8%AD%98/" rel="next" title="法醫病理:傷勢分析_型態辨識">
+      法醫病理:傷勢分析_型態辨識 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%80%E5%A1%8A%E9%8F%88%E8%88%87%E6%99%BA%E6%85%A7%E5%90%88%E7%B4%84%E5%AE%89%E5%85%A8"><span class="nav-number">1.</span> <span class="nav-text">區塊鏈與智慧合約安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#101"><span class="nav-number">2.</span> <span class="nav-text">101</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Concept"><span class="nav-number">2.1.</span> <span class="nav-text">Concept</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#type-of-chain"><span class="nav-number">2.2.</span> <span class="nav-text">type of chain</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#difficulty"><span class="nav-number">2.2.1.</span> <span class="nav-text">difficulty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Longest-chain"><span class="nav-number">2.2.2.</span> <span class="nav-text">Longest chain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#double-spending"><span class="nav-number">2.2.3.</span> <span class="nav-text">double spending</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#consensus-algorithm-permissioned"><span class="nav-number">2.2.4.</span> <span class="nav-text">consensus algorithm - permissioned</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#summary-of-blockchain"><span class="nav-number">2.2.5.</span> <span class="nav-text">summary of blockchain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork"><span class="nav-number">2.2.6.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#blockchain-trilemma"><span class="nav-number">2.2.7.</span> <span class="nav-text">blockchain trilemma</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Layers"><span class="nav-number">2.3.</span> <span class="nav-text">Layers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Layer0"><span class="nav-number">2.3.1.</span> <span class="nav-text">Layer0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layer1"><span class="nav-number">2.3.2.</span> <span class="nav-text">Layer1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layer2-%E6%93%B4%E5%85%85%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="nav-number">2.3.3.</span> <span class="nav-text">Layer2(擴充基本功能)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layer3-%E4%BA%A4%E6%98%93%E6%89%80"><span class="nav-number">2.3.4.</span> <span class="nav-text">Layer3(交易所)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layer4-%E8%B7%9F%E4%BA%BA%E4%BB%8B%E6%8E%A5%E7%9A%84%E4%BB%8B%E9%9D%A2"><span class="nav-number">2.3.5.</span> <span class="nav-text">Layer4(跟人介接的介面)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeFi"><span class="nav-number">2.4.</span> <span class="nav-text">DeFi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Non-Fungible-Token-NFT"><span class="nav-number">2.5.</span> <span class="nav-text">Non-Fungible Token(NFT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web"><span class="nav-number">2.6.</span> <span class="nav-text">web</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web1-0"><span class="nav-number">2.6.1.</span> <span class="nav-text">web1.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web2-0"><span class="nav-number">2.6.2.</span> <span class="nav-text">web2.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web3-0"><span class="nav-number">2.6.3.</span> <span class="nav-text">web3.0</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#private-key"><span class="nav-number">2.7.</span> <span class="nav-text">private key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wallet"><span class="nav-number">2.8.</span> <span class="nav-text">wallet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%98%93%E6%89%80"><span class="nav-number">2.9.</span> <span class="nav-text">交易所</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FTX"><span class="nav-number">2.9.1.</span> <span class="nav-text">FTX</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#security"><span class="nav-number">3.</span> <span class="nav-text">security</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#seed-pharse"><span class="nav-number">3.1.</span> <span class="nav-text">seed pharse:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wallet-generator-%E4%B8%8D%E8%A6%81%E7%94%A8%E9%80%99%E7%A8%AE%E9%9D%9E%E6%AD%A3%E5%BC%8F%E7%9A%84wallet"><span class="nav-number">3.2.</span> <span class="nav-text">wallet generator(不要用這種非正式的wallet)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sybil-attack"><span class="nav-number">3.2.1.</span> <span class="nav-text">sybil attack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#double-spending-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">double spending</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC"><span class="nav-number">3.2.3.</span> <span class="nav-text">RPC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC-attack"><span class="nav-number">3.2.4.</span> <span class="nav-text">RPC attack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BGP-hijacking"><span class="nav-number">3.2.5.</span> <span class="nav-text">BGP hijacking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-hijacking"><span class="nav-number">3.2.6.</span> <span class="nav-text">DNS hijacking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dusting-hijacking"><span class="nav-number">3.2.7.</span> <span class="nav-text">Dusting hijacking</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Layer2"><span class="nav-number">3.3.</span> <span class="nav-text">Layer2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%A8%E9%8F%88%E6%A9%8Bcross-chain-bridge"><span class="nav-number">3.3.1.</span> <span class="nav-text">跨鏈橋cross-chain bridge</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Layer3"><span class="nav-number">3.4.</span> <span class="nav-text">Layer3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Oracle"><span class="nav-number">3.4.1.</span> <span class="nav-text">Oracle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flash-loan"><span class="nav-number">3.4.2.</span> <span class="nav-text">Flash loan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slippage"><span class="nav-number">3.4.3.</span> <span class="nav-text">slippage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flash-loan-attack"><span class="nav-number">3.4.4.</span> <span class="nav-text">Flash loan attack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transaction"><span class="nav-number">3.4.5.</span> <span class="nav-text">transaction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEV"><span class="nav-number">3.4.6.</span> <span class="nav-text">MEV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mixer%E6%B7%B7%E5%B9%A3%E5%99%A8"><span class="nav-number">3.4.7.</span> <span class="nav-text">mixer混幣器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab"><span class="nav-number">3.5.</span> <span class="nav-text">Lab</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jonathan Liu"
+      src="/notes/images/me.jpg">
+  <p class="site-author-name" itemprop="name">Jonathan Liu</p>
+  <div class="site-description" itemprop="description">我的學習文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/notes/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/notes/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/notes/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jonathan Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/notes/lib/anime.min.js"></script>
+  <script src="/notes/lib/velocity/velocity.min.js"></script>
+  <script src="/notes/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/notes/js/utils.js"></script>
+
+<script src="/notes/js/motion.js"></script>
+
+
+<script src="/notes/js/schemes/pisces.js"></script>
+
+
+<script src="/notes/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
